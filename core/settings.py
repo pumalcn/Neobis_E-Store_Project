@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     # External packages
     "rest_framework",
     "rest_framework.authtoken",
+    "drf_yasg",
 ]
 
 
