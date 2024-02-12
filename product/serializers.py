@@ -1,11 +1,19 @@
 from rest_framework import serializers
 from .models import Category, Product
+from django.utils.text import slugify
 
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = '__all__'
+
+    def update(self, instance, validated_data):
+        instance.title = validated_data.get('title', instance.title)
+        instance.slug = slugify(instance.title)
+        instance.featured = validated_data.get('featured', instance.featured)
+        instance.save()
+        return instance
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -17,6 +25,12 @@ class ProductSerializer(serializers.ModelSerializer):
         context = super().to_representation(instance)
         context['category'] = {"id": instance.category.id, "title": instance.category.title, "slug": instance.category.slug}
         return context
+
+    def update(self, instance, validated_data):  # динамически обновляет slug
+        instance = super().update(instance, validated_data)
+        instance.slug = slugify(instance.title)
+        instance.save()
+        return instance
 
 
 class RetrieveProductSerializer(serializers.ModelSerializer):

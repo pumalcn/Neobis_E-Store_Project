@@ -31,3 +31,39 @@ class RetrieveCategory(generics.RetrieveAPIView):
     queryset = Category.objects.all()
     serializer_class = RetrieveCategorySerializer
     lookup_field = "slug"
+
+
+class CreateProduct(generics.CreateAPIView):
+    permission_classes = [permissions.IsAdminUser, ]
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+
+class UpdateProduct(generics.UpdateAPIView):
+    permission_classes = [permissions.IsAdminUser, ]
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+
+class DestroyProduct(generics.DestroyAPIView):
+    permission_classes = [permissions.IsAdminUser, ]
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+
+class CreateCategory(generics.CreateAPIView):
+    permission_classes = [permissions.IsAdminUser, ]
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+
+class UpdateCategory(generics.UpdateAPIView):
+    permission_classes = [permissions.IsAdminUser, ]
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+
+class DestroyCategory(generics.DestroyAPIView):
+    permission_classes = [permissions.IsAdminUser, ]
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
