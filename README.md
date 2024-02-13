@@ -34,21 +34,24 @@ To get started with the URL shortener, you can clone the repository from GitHub 
 3. Install project dependencies:
    ```bash
    pip install -r requirements.txt
-   
-4. Run database migrations:
+4. Run the custom command:
+   ```bash
+   python manage.py insert_data
+
+5. Run database migrations:
    ```bash
    python manage.py makemigrations
    python manage.py migrate
    
-5. Create a superuser account (for admin access)
+6. Create a superuser account (for admin access)
    ```bash
    python manage.py createsuperuser
    
-6. Start the development server:
+7. Start the development server:
    ```bash
    python manage.py runserver
    
-7. Open your web browser and go to http://localhost:8000 to access the E-Store.
+8. Open your web browser and go to http://localhost:8000 to access the E-Store.
 
 ## Contributing
 
