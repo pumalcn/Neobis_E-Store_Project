@@ -10,7 +10,7 @@ class UserInfoSerializer(serializers.ModelSerializer):
         fields = ['id', 'address']
 
 
-class UserSerializer(serializers.ModelSerializer):
+class CustomUserSerializer(serializers.ModelSerializer):
     user_info = UserInfoSerializer(source='userinfo', read_only=True)  # source взял из атрибута related_name
 
     class Meta:

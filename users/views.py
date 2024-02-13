@@ -4,7 +4,7 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIV
 from rest_framework.permissions import IsAuthenticated
 from .permissions import IsOwnerProfileOrReadOnly
 from product.models import UserInfo
-from users.serializers import UserInfoSerializer, UserSerializer
+from users.serializers import UserInfoSerializer, CustomUserSerializer
 
 
 class UserInfoListCreateView(ListCreateAPIView):
@@ -20,5 +20,5 @@ class UserInfoListCreateView(ListCreateAPIView):
 
 class UserInfoDetailView(RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = CustomUserSerializer
     permission_classes = [IsAuthenticated, IsOwnerProfileOrReadOnly, ]

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Category, Product
+from .models import Category, Product, Review
 from django.utils.text import slugify
 
 
@@ -77,3 +77,13 @@ class RetrieveCategorySerializer(serializers.ModelSerializer):
 
     def get_products(self, obj):
         return ProductSerializer(obj.products.all(), many=True).data
+
+
+class ReviewSerializer(serializers.ModelSerializer):
+    review_text = serializers.CharField(min_length=1)
+    stars = serializers.IntegerField(min_value=1, max_value=5)
+    product_reviews_id = serializers.IntegerField()
+
+    class Meta:
+        model = Review
+        fields = ['id', 'product_reviews_id', 'review_text', 'stars', 'author']

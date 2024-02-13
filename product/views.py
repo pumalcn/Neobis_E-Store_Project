@@ -1,7 +1,11 @@
-from rest_framework import generics
+from rest_framework import generics, viewsets
 from rest_framework import permissions
-from .models import Product, Category
-from .serializers import ProductSerializer, CategorySerializer, RetrieveProductSerializer, RetrieveCategorySerializer
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+
+from .models import Product, Category, Review
+from .serializers import ProductSerializer, CategorySerializer, RetrieveProductSerializer, RetrieveCategorySerializer, \
+    ReviewSerializer
 
 
 class ListProduct(generics.ListAPIView):
@@ -67,3 +71,13 @@ class DestroyCategory(generics.DestroyAPIView):
     permission_classes = [permissions.IsAdminUser, ]
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+
+
+class ReviewViewSet(viewsets.ModelViewSet):
+    queryset = Review.objects.all().order_by('-id')
+    serializer_class = ReviewSerializer
+    pagination_class = PageNumberPagination
+    permission_classes = [IsAuthenticatedOrReadOnly, ]
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)

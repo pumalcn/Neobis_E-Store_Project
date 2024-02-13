@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class Category(models.Model):
     title = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(unique=True)
@@ -33,6 +34,16 @@ class Product(models.Model):
     def related(self):
         return self.category.products.all().exclude(id=self.id)
 
+    @property
+    def rating(self):
+        total_amount = self.reviews.all().count()
+        if total_amount == 0:
+            return 0
+        rate = 0
+        for i in self.reviews.all():
+            rate += i.stars
+        return rate / total_amount
+
 
 class UserInfo(models.Model):
     user = models.OneToOneField(User, related_name='userinfo', on_delete=models.CASCADE)
@@ -41,3 +52,14 @@ class UserInfo(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+class Review(models.Model):
+    product_reviews = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews')
+    review_text = models.TextField(max_length=1000)
+    stars = models.IntegerField(default=0)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='review_author')
+
+    def __str__(self):
+        return self.review_text
+

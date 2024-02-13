@@ -1,7 +1,11 @@
-from django.urls import path
-from .views import ListProduct, ListCategory, RetrieveProduct, RetrieveCategory, CreateProduct, UpdateProduct,\
-    DestroyProduct, CreateCategory, UpdateCategory, DestroyCategory
+from django.urls import path, include
+from .views import ListProduct, ListCategory, RetrieveProduct, RetrieveCategory, CreateProduct, UpdateProduct, \
+    DestroyProduct, CreateCategory, UpdateCategory, DestroyCategory, ReviewViewSet
+from rest_framework.routers import DefaultRouter
 
+
+router = DefaultRouter()
+router.register(r'reviews', ReviewViewSet)
 urlpatterns = [
     path('list-product/', ListProduct.as_view(), name='list-product'),
     path('list-category/', ListCategory.as_view(), name='list-category'),
@@ -13,4 +17,5 @@ urlpatterns = [
     path('create-category/', CreateCategory.as_view(), name='create-category'),
     path('update-category/<int:pk>/', UpdateCategory.as_view(), name='update-category'),
     path('destroy-category/<int:pk>/', DestroyCategory.as_view(), name='destroy-category'),
+    path('product/', include(router.urls)),
 ]

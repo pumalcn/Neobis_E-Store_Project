@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     # Internal apps
     "product",
     "users",
+    "orders",
     
     # External packages
     "rest_framework",
