@@ -28,11 +28,13 @@ INSTALLED_APPS = [
 
     # Internal apps
     "product",
+    "users",
     
     # External packages
     "rest_framework",
     "rest_framework.authtoken",
     "drf_yasg",
+    "djoser",
 ]
 
 

@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 
 class Category(models.Model):
     title = models.CharField(max_length=100, unique=True)
@@ -32,3 +32,12 @@ class Product(models.Model):
     @property
     def related(self):
         return self.category.products.all().exclude(id=self.id)
+
+
+class UserInfo(models.Model):
+    user = models.OneToOneField(User, related_name='userinfo', on_delete=models.CASCADE)
+    address = models.CharField(max_length=150)
+    REQUIRED_FIELDS = ['address']
+
+    def __str__(self):
+        return self.user.username
